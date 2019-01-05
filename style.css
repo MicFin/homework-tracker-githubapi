@@ -1,0 +1,32 @@
+* {
+  font-family: sans-serif;
+  color: black;
+  font-family: "Quicksand", sans-serif;
+}
+body,
+html {
+  margin: 0 auto;
+  background-color: white;
+  text-align: center;
+}
+
+h1 {
+  color: black;
+  font-size: 4em;
+  font-weight: light;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.table > thead > tr > td,
+.table > thead > tr > th {
+  border-top: 0px;
+}
