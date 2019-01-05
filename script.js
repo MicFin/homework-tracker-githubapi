@@ -140,7 +140,7 @@ $(document).ready(() => {
     const $repo = $("<div>").attr("class", "container bg-light");
 
     $("<h2>")
-      .text("HW " + repo.name)
+      .text(repo.name)
       .appendTo($repo);
 
     // const $creationDate = $("<h2>")
