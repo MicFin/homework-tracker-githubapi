@@ -36,7 +36,6 @@ $(document).ready(() => {
       .then(response => response.json())
       .then(repos => {
         filterRepos(repos);
-        renderRepos(repos);
       })
       .catch(error => console.log(error));
   };
@@ -69,16 +68,16 @@ $(document).ready(() => {
     });
   };
   const renderPulls = pulls => {
+    let dueDate = new Date(pulls[0].base.repo.created_at.slice(0, 10));
     let submittedStudents = [];
     const $tbody = $(`#${pulls[0].base.repo.id}`);
 
+    if (dueDate.getDay() === 4) {
+      dueDate.setDate(dueDate.getDate() + 2);
+    }
     pulls.forEach(pull => {
       // $userAvatar = $("<img/>");
-
-      submittedStudents.push(pull.user.login);
-
       const $tr = $("<tr>");
-
       const $th = $("<th>");
       $("<a>")
         .attr("href", `https://github.com/${pull.user.login}`)
@@ -95,6 +94,19 @@ $(document).ready(() => {
         .text(pull.closed_at)
         .appendTo($tr);
 
+      let submissionDate = new Date(pull.created_at.slice(0, 10));
+      pull.closed_at != null
+        ? $tr.attr("class", "success")
+        : $tr.attr("class", "info");
+
+      if (
+        pull.created_at != null &&
+        submissionDate > dueDate &&
+        pull.closed_at != null
+      ) {
+        $tr.attr("class", "warning");
+      }
+
       $tr.appendTo($tbody);
     });
 
@@ -105,9 +117,15 @@ $(document).ready(() => {
     if (missingSubmission.length > 0) {
       missingSubmission.forEach(student => {
         const $tr = $("<tr>").attr("class", "danger");
-        $("<th>")
+
+        const $th = $("<th>");
+        $("<a>")
+          .attr("href", `https://github.com/${student}`)
           .text(student)
-          .appendTo($tr);
+          .appendTo($th);
+
+        $th.appendTo($tr);
+
         $("<th>")
           .text("missing!")
           .appendTo($tr);
@@ -118,11 +136,10 @@ $(document).ready(() => {
       });
     }
   };
-
   const renderRepo = repo => {
     const $repo = $("<div>").attr("class", "container bg-light");
 
-    const $name = $("<h2>")
+    $("<h2>")
       .text("HW " + repo.name)
       .appendTo($repo);
 
@@ -133,7 +150,7 @@ $(document).ready(() => {
     //   .text("forks " + repo.forks)
     //   .appendTo($repo);
 
-    const $table = $(`
+    $(`
       <table class="table">
         <thead>
           <tr>
