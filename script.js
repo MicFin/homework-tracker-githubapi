@@ -80,7 +80,11 @@ $(document).ready(() => {
       const $tr = $("<tr>");
       const $th = $("<th>");
       $("<a>")
-        .attr("href", `https://github.com/${pull.user.login}`)
+        .attr(
+          "href",
+          `https://github.com/${pull.base.repo.full_name}/pull/${pull.number}`
+        )
+        .attr("target", "_blank")
         .text(pull.user.login)
         .appendTo($th);
 
@@ -122,6 +126,7 @@ $(document).ready(() => {
         const $th = $("<th>");
         $("<a>")
           .attr("href", `https://github.com/${student}`)
+          .attr("target", "_blank")
           .text(student)
           .appendTo($th);
 
