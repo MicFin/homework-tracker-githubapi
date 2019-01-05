@@ -107,6 +107,7 @@ $(document).ready(() => {
         $tr.attr("class", "warning");
       }
 
+      submittedStudents.push(pull.user.login);
       $tr.appendTo($tbody);
     });
 
@@ -141,6 +142,9 @@ $(document).ready(() => {
 
     $("<h2>")
       .text(repo.name)
+      .appendTo($repo);
+    $("<h3>")
+      .text(repo.created_at)
       .appendTo($repo);
 
     // const $creationDate = $("<h2>")
