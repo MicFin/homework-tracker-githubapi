@@ -31,7 +31,7 @@ $(document).ready(() => {
   ];
 
   const getHwRepos = () => {
-    const url = `https://api.github.com/search/repositories?q=hw-w0+user:WDI-HoneyBadger&sort=updated&order=asc`;
+    const url = `https://api.github.com/search/repositories?q=hw-w0+user:WDI-HoneyBadger&sort=updated&order=asc&client_id=c7a4ef84ea33e980f0be&client_secret=76d949aba16344d527b730a45ed039672d88cf9c`;
     fetch(url)
       .then(response => response.json())
       .then(repos => {
@@ -62,7 +62,9 @@ $(document).ready(() => {
       if (checkeHw(repo.name, ["w01", "w02"])) {
         renderRepo(repo);
         getPulls(
-          `https://api.github.com/repos/${repo.full_name}/pulls?state=all`
+          `https://api.github.com/repos/${
+            repo.full_name
+          }/pulls?state=all&client_id=c7a4ef84ea33e980f0be&client_secret=76d949aba16344d527b730a45ed039672d88cf9c`
         );
       }
     });
@@ -82,7 +84,9 @@ $(document).ready(() => {
       $("<a>")
         .attr(
           "href",
-          `https://github.com/${pull.base.repo.full_name}/pull/${pull.number}`
+          `https://github.com/${pull.base.repo.full_name}/pull/${
+            pull.number
+          }?&client_id=c7a4ef84ea33e980f0be&client_secret=76d949aba16344d527b730a45ed039672d88cf9c`
         )
         .attr("target", "_blank")
         .text(pull.user.login)
