@@ -31,7 +31,7 @@ $(document).ready(() => {
   ];
 
   const getHwRepos = () => {
-    const url = `https://api.github.com/search/repositories?q=hw-w0+user:WDI-HoneyBadger&sort=updated&order=asc&client_id=c7a4ef84ea33e980f0be&client_secret=76d949aba16344d527b730a45ed039672d88cf9c`;
+    const url = `https://api.github.com/search/repositories?q=hw-w0+fork:true+user:WDI-HoneyBadger&sort=updated&order=asc&client_id=c7a4ef84ea33e980f0be&client_secret=76d949aba16344d527b730a45ed039672d88cf9c`;
     fetch(url)
       .then(response => response.json())
       .then(repos => {
@@ -59,6 +59,7 @@ $(document).ready(() => {
 
   const filterRepos = repos => {
     return repos.items.filter(repo => {
+      console.log(repo.name);
       if (checkeHw(repo.name, ["w01", "w02"])) {
         renderRepo(repo);
         getPulls(
